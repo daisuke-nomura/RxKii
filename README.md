@@ -88,4 +88,4 @@ Please use [GitHub Issues][issues].
 
 [kii]: https://jp.kii.com/
 [rxjava2]: https://github.com/ReactiveX/RxJava/tree/2.x
-[issues]: https://github.com/daisuke_nomura/RxKii/issues
+[issues]: https://github.com/daisuke-nomura/RxKii/issues
