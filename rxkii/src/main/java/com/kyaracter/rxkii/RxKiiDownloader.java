@@ -67,13 +67,16 @@ public class RxKiiDownloader {
                         kiiDownloader.transferAsync(new KiiRTransferCallback() {
                             @Override
                             public void onProgress(@NonNull KiiRTransfer operator, long completedInBytes, long totalSizeinBytes) {
-                                super.onProgress(operator, completedInBytes, totalSizeinBytes);
                                 emitter.onNext((float) completedInBytes / totalSizeinBytes);
                             }
 
                             @Override
                             public void onTransferCompleted(@NonNull KiiRTransfer operator, @NonNull Exception e) {
-                                super.onTransferCompleted(operator, e);
+                                if (e != null) {
+                                    emitter.onError(e);
+                                    return;
+                                }
+
                                 emitter.onComplete();
                             }
                         });
