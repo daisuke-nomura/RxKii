@@ -1,5 +1,7 @@
 # RxKii: RxJava 2 wrapper for Kii Cloud
 
+[![Release](https://jitpack.io/v/daisuke-nomura/rxkii.svg)](https://jitpack.io/#daisuke-nomura/rxkii)
+
 RxKii is a [RxJava 2][rxjava2] wrapper library for [Kii Cloud][kii].  
 This library returns Single or Completable or Observable of RxJava 2.  
 
