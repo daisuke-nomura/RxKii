@@ -3,6 +3,7 @@ package com.kyaracter.rxkii;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import com.kii.cloud.storage.resumabletransfer.KiiDownloader;
 import com.kii.cloud.storage.resumabletransfer.KiiRTransfer;
@@ -71,7 +72,7 @@ public class RxKiiDownloader {
                             }
 
                             @Override
-                            public void onTransferCompleted(@NonNull KiiRTransfer operator, @NonNull Exception e) {
+                            public void onTransferCompleted(@NonNull KiiRTransfer operator, @Nullable Exception e) {
                                 if (e != null) {
                                     emitter.onError(e);
                                     return;
