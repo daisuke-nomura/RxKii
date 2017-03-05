@@ -32,11 +32,6 @@ public class RxKiiACL {
     @NonNull
     public static Single<Set<KiiACLEntry>> listACLEntriesAsSingle(@NonNull final KiiACL kiiACL) {
         return Single
-                .fromCallable(new Callable<Set<KiiACLEntry>>() {
-                    @Override
-                    public Set<KiiACLEntry> call() throws Exception {
-                        return kiiACL.listACLEntries();
-                    }
-                });
+                .fromCallable(() -> kiiACL.listACLEntries());
     }
 }

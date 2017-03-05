@@ -14,8 +14,6 @@ import java.util.concurrent.Callable;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import io.reactivex.Single;
 
 public class RxKiiUploader {
@@ -24,12 +22,7 @@ public class RxKiiUploader {
     @NonNull
     public static Single<KiiRTransferInfo> infoAsSingle(@NonNull final KiiUploader kiiUploader) {
         return Single
-                .fromCallable(new Callable<KiiRTransferInfo>() {
-                    @Override
-                    public KiiRTransferInfo call() throws Exception {
-                        return kiiUploader.info();
-                    }
-                });
+                .fromCallable(() -> kiiUploader.info());
     }
 
     @CheckResult
@@ -62,26 +55,21 @@ public class RxKiiUploader {
     @NonNull
     public static Observable<Float> transferAsObservable(@NonNull final KiiUploader kiiUploader) {
         return Observable
-                .create(new ObservableOnSubscribe<Float>() {
+                .create(emitter -> kiiUploader.transferAsync(new KiiRTransferCallback() {
                     @Override
-                    public void subscribe(final ObservableEmitter<Float> emitter) throws Exception {
-                        kiiUploader.transferAsync(new KiiRTransferCallback() {
-                            @Override
-                            public void onProgress(@NonNull KiiRTransfer operator, long completedInBytes, long totalSizeinBytes) {
-                                emitter.onNext((float) completedInBytes / totalSizeinBytes);
-                            }
-
-                            @Override
-                            public void onTransferCompleted(@NonNull KiiRTransfer operator, @Nullable Exception e) {
-                                if (e != null) {
-                                    emitter.onError(e);
-                                    return;
-                                }
-
-                                emitter.onComplete();
-                            }
-                        });
+                    public void onProgress(@NonNull KiiRTransfer operator, long completedInBytes, long totalSizeinBytes) {
+                        emitter.onNext((float) completedInBytes / totalSizeinBytes);
                     }
-                });
+
+                    @Override
+                    public void onTransferCompleted(@NonNull KiiRTransfer operator, @Nullable Exception e) {
+                        if (e != null) {
+                            emitter.onError(e);
+                            return;
+                        }
+
+                        emitter.onComplete();
+                    }
+                }));
     }
 }

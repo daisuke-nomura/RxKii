@@ -44,12 +44,7 @@ public class RxKiiTopic {
     @NonNull
     public static Single<Boolean> existsAsSingle(@NonNull final KiiTopic kiiTopic) {
         return Single
-                .fromCallable(new Callable<Boolean>() {
-                    @Override
-                    public Boolean call() throws Exception {
-                        return kiiTopic.exists();
-                    }
-                });
+                .fromCallable(() -> kiiTopic.exists());
     }
 
     @CheckResult

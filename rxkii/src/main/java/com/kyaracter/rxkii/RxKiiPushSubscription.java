@@ -45,12 +45,7 @@ public class RxKiiPushSubscription {
     @NonNull
     public static Single<Boolean> isSubscribedAsSingle(@NonNull final KiiPushSubscription kiiPushSubscription, @NonNull final KiiSubscribable target) {
         return Single
-                .fromCallable(new Callable<Boolean>() {
-                    @Override
-                    public Boolean call() throws Exception {
-                        return kiiPushSubscription.isSubscribed(target);
-                    }
-                });
+                .fromCallable(() -> kiiPushSubscription.isSubscribed(target));
     }
 
     @CheckResult

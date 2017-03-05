@@ -35,12 +35,9 @@ public class RxKiiGroup {
     @NonNull
     public static Single<KiiGroup> refreshAsSingle(@NonNull final KiiGroup kiiGroup) {
         return Single
-                .fromCallable(new Callable<KiiGroup>() {
-                    @Override
-                    public KiiGroup call() throws Exception {
-                        kiiGroup.refresh();
-                        return kiiGroup;
-                    }
+                .fromCallable(() -> {
+                    kiiGroup.refresh();
+                    return kiiGroup;
                 });
     }
 
@@ -61,12 +58,7 @@ public class RxKiiGroup {
     @NonNull
     public static Single<KiiGroup> registerGroupWithIDAsSingle(@NonNull final String id, @NonNull final String name, @Nullable final List<KiiUser> members) {
         return Single
-                .fromCallable(new Callable<KiiGroup>() {
-                    @Override
-                    public KiiGroup call() throws Exception {
-                        return KiiGroup.registerGroupWithID(id, name, members);
-                    }
-                });
+                .fromCallable(() -> KiiGroup.registerGroupWithID(id, name, members));
     }
 
     @CheckResult
@@ -86,47 +78,27 @@ public class RxKiiGroup {
     @NonNull
     public static Single<KiiUser> getOwnerAsSingle(@NonNull final KiiGroup kiiGroup) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return kiiGroup.getOwner();
-                    }
-                });
+                .fromCallable(() -> kiiGroup.getOwner());
     }
 
     @CheckResult
     @NonNull
     public static Single<List<KiiUser>> listMembersAsSingle(@NonNull final KiiGroup kiiGroup) {
         return Single
-                .fromCallable(new Callable<List<KiiUser>>() {
-                    @Override
-                    public List<KiiUser> call() throws Exception {
-                        return kiiGroup.listMembers();
-                    }
-                });
+                .fromCallable(() -> kiiGroup.listMembers());
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiListResult<KiiTopic>> listTopicsAsSingle(@NonNull final KiiGroup kiiGroup) {
         return Single
-                .fromCallable(new Callable<KiiListResult<KiiTopic>>() {
-                    @Override
-                    public KiiListResult<KiiTopic> call() throws Exception {
-                        return kiiGroup.listTopics();
-                    }
-                });
+                .fromCallable(() -> kiiGroup.listTopics());
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiListResult<KiiTopic>> listTopicsAsSingle(@NonNull final KiiGroup kiiGroup, @Nullable final String paginationKey) {
         return Single
-                .fromCallable(new Callable<KiiListResult<KiiTopic>>() {
-                    @Override
-                    public KiiListResult<KiiTopic> call() throws Exception {
-                        return kiiGroup.listTopics(paginationKey);
-                    }
-                });
+                .fromCallable(() -> kiiGroup.listTopics(paginationKey));
     }
 }

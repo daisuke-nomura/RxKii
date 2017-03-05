@@ -89,84 +89,51 @@ public class RxKiiUser {
     @NonNull
     public static Single<KiiUser> logInAsSingle(@NonNull final String userIdentifier, @NonNull final String password) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.logIn(userIdentifier, password);
-                    }
-                });
+                .fromCallable(() -> KiiUser.logIn(userIdentifier, password));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> logInWithLocalPhoneAsSingle(@NonNull final String localPhoneNumber, @NonNull final String password, @NonNull final String country) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.logInWithLocalPhone(localPhoneNumber, password, country);
-                    }
-                });
+                .fromCallable(() -> KiiUser.logInWithLocalPhone(localPhoneNumber, password, country));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> loginWithTokenAsSingle(@NonNull final String token) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.loginWithToken(token);
-                    }
-                });
+                .fromCallable(() -> KiiUser.loginWithToken(token));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> loginWithTokenAsSingle(@NonNull final String token, final long expiresAt) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.loginWithToken(token, expiresAt);
-                    }
-                });
+                .fromCallable(() -> KiiUser.loginWithToken(token, expiresAt));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> loginWithTokenAsSingle(@NonNull final String token, final long expiresAt, @NonNull final String refreshToken) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.loginWithToken(token, expiresAt, refreshToken);
-                    }
-                });
+                .fromCallable(() -> KiiUser.loginWithToken(token, expiresAt, refreshToken));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> loginWithStoredCredentialsAsSingle() {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.loginWithStoredCredentials();
-                    }
-                });
+                .fromCallable(() -> KiiUser.loginWithStoredCredentials());
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> refreshAsSingle(@NonNull final KiiUser kiiUser) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        kiiUser.refresh();
-                        return kiiUser;
-                    }
+                .fromCallable(() -> {
+                    kiiUser.refresh();
+                    return kiiUser;
                 });
     }
 
@@ -278,48 +245,28 @@ public class RxKiiUser {
     @NonNull
     public static Single<KiiUser> findUserByUserNameAsSingle(@NonNull final String username) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.findUserByUserName(username);
-                    }
-                });
+                .fromCallable(() -> KiiUser.findUserByUserName(username));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> findUserByEmailAsSingle(@NonNull final String email) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.findUserByEmail(email);
-                    }
-                });
+                .fromCallable(() -> KiiUser.findUserByEmail(email));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> findUserByPhoneAsSingle(@NonNull final String phone) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.findUserByPhone(phone);
-                    }
-                });
+                .fromCallable(() -> KiiUser.findUserByPhone(phone));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiUser> registerAsPseudoUserAsSingle(@Nullable final UserFields userFields) {
         return Single
-                .fromCallable(new Callable<KiiUser>() {
-                    @Override
-                    public KiiUser call() throws Exception {
-                        return KiiUser.registerAsPseudoUser(userFields);
-                    }
-                });
+                .fromCallable(() -> KiiUser.registerAsPseudoUser(userFields));
     }
 
     @CheckResult
@@ -339,47 +286,27 @@ public class RxKiiUser {
     @NonNull
     public static Single<List<KiiGroup>> memberOfGroupsAsSingle(@NonNull final KiiUser kiiUser) {
         return Single
-                .fromCallable(new Callable<List<KiiGroup>>() {
-                    @Override
-                    public List<KiiGroup> call() throws Exception {
-                        return kiiUser.memberOfGroups();
-                    }
-                });
+                .fromCallable(() -> kiiUser.memberOfGroups());
     }
 
     @CheckResult
     @NonNull
     public static Single<List<KiiGroup>> ownerOfGroupsAsSingle(@NonNull final KiiUser kiiUser) {
         return Single
-                .fromCallable(new Callable<List<KiiGroup>>() {
-                    @Override
-                    public List<KiiGroup> call() throws Exception {
-                        return kiiUser.ownerOfGroups();
-                    }
-                });
+                .fromCallable(() -> kiiUser.ownerOfGroups());
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiListResult<KiiTopic>> listTopicsAsSingle(@NonNull final KiiUser kiiUser) {
         return Single
-                .fromCallable(new Callable<KiiListResult<KiiTopic>>() {
-                    @Override
-                    public KiiListResult<KiiTopic> call() throws Exception {
-                        return kiiUser.listTopics();
-                    }
-                });
+                .fromCallable(() -> kiiUser.listTopics());
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiListResult<KiiTopic>> listTopicsAsSingle(@NonNull final KiiUser kiiUser, @Nullable final String paginationKey) {
         return Single
-                .fromCallable(new Callable<KiiListResult<KiiTopic>>() {
-                    @Override
-                    public KiiListResult<KiiTopic> call() throws Exception {
-                        return kiiUser.listTopics(paginationKey);
-                    }
-                });
+                .fromCallable(() -> kiiUser.listTopics(paginationKey));
     }
 }
