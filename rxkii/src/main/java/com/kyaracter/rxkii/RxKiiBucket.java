@@ -21,36 +21,21 @@ public class RxKiiBucket {
     @NonNull
     public static Single<KiiQueryResult<KiiObject>> queryAsSingle(@NonNull final KiiBucket kiiBucket, @Nullable final KiiQuery query) {
         return Single
-                .fromCallable(new Callable<KiiQueryResult<KiiObject>>() {
-                    @Override
-                    public KiiQueryResult<KiiObject> call() throws Exception {
-                        return kiiBucket.query(query);
-                    }
-                });
+                .fromCallable(() -> kiiBucket.query(query));
     }
 
     @CheckResult
     @NonNull
     public static Single<Integer> countAsSingle(@NonNull final KiiBucket kiiBucket) {
         return Single
-                .fromCallable(new Callable<Integer>() {
-                    @Override
-                    public Integer call() throws Exception {
-                        return kiiBucket.count();
-                    }
-                });
+                .fromCallable(() -> kiiBucket.count());
     }
 
     @CheckResult
     @NonNull
     public static Single<Integer> countAsSingle(@NonNull final KiiBucket kiiBucket, @Nullable final KiiQuery query) {
         return Single
-                .fromCallable(new Callable<Integer>() {
-                    @Override
-                    public Integer call() throws Exception {
-                        return kiiBucket.count(query);
-                    }
-                });
+                .fromCallable(() -> kiiBucket.count(query));
     }
 
     @CheckResult

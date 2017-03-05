@@ -19,12 +19,9 @@ public class RxKiiObject {
     @NonNull
     public static Single<KiiObject> refreshAsSingle(@NonNull final KiiObject kiiObject) {
         return Single
-                .fromCallable(new Callable<KiiObject>() {
-                    @Override
-                    public KiiObject call() throws Exception {
-                        kiiObject.refresh();
-                        return kiiObject;
-                    }
+                .fromCallable(() -> {
+                    kiiObject.refresh();
+                    return kiiObject;
                 });
     }
 
@@ -84,36 +81,21 @@ public class RxKiiObject {
     @NonNull
     public static Single<String> publishBodyAsSingle(@NonNull final KiiObject kiiObject) {
         return Single
-                .fromCallable(new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        return kiiObject.publishBody();
-                    }
-                });
+                .fromCallable(() -> kiiObject.publishBody());
     }
 
     @CheckResult
     @NonNull
     public static Single<String> publishBodyExpiresAtAsSingle(@NonNull final KiiObject kiiObject, final long expiresAt) {
         return Single
-                .fromCallable(new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        return kiiObject.publishBodyExpiresAt(expiresAt);
-                    }
-                });
+                .fromCallable(() -> kiiObject.publishBodyExpiresAt(expiresAt));
     }
 
     @CheckResult
     @NonNull
     public static Single<String> publishBodyExpiresInAsSingle(@NonNull final KiiObject kiiObject, final int expiresIn) {
         return Single
-                .fromCallable(new Callable<String>() {
-                    @Override
-                    public String call() throws Exception {
-                        return kiiObject.publishBodyExpiresIn(expiresIn);
-                    }
-                });
+                .fromCallable(() -> kiiObject.publishBodyExpiresIn(expiresIn));
     }
 
     @CheckResult

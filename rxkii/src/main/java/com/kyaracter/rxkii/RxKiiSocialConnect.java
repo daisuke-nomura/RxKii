@@ -12,11 +12,7 @@ import com.kii.cloud.storage.callback.KiiSocialCallBack;
 import com.kii.cloud.storage.social.KiiSocialConnect;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableEmitter;
-import io.reactivex.CompletableOnSubscribe;
 import io.reactivex.Single;
-import io.reactivex.SingleEmitter;
-import io.reactivex.SingleOnSubscribe;
 
 public class RxKiiSocialConnect {
 
@@ -24,65 +20,50 @@ public class RxKiiSocialConnect {
     @NonNull
     public static Single<KiiUser> logInAsSingle(@NonNull final KiiSocialConnect kiiSocialConnect, @Nullable final Activity var1, @Nullable final Bundle var2) {
         return Single
-                .create(new SingleOnSubscribe<KiiUser>() {
+                .create(e -> kiiSocialConnect.logIn(var1, var2, new KiiSocialCallBack() {
                     @Override
-                    public void subscribe(final SingleEmitter<KiiUser> e) throws Exception {
-                        kiiSocialConnect.logIn(var1, var2, new KiiSocialCallBack() {
-                            @Override
-                            public void onLoginCompleted(@NonNull KiiSocialConnect.SocialNetwork network, @Nullable KiiUser user, @Nullable Exception exception) {
-                                if (exception != null) {
-                                    e.onError(exception);
-                                    return;
-                                }
+                    public void onLoginCompleted(@NonNull KiiSocialConnect.SocialNetwork network, @Nullable KiiUser user, @Nullable Exception exception) {
+                        if (exception != null) {
+                            e.onError(exception);
+                            return;
+                        }
 
-                                e.onSuccess(user);
-                            }
-                        });
+                        e.onSuccess(user);
                     }
-                });
+                }));
     }
 
     @CheckResult
     @NonNull
     public static Completable linkAsCompletable(@NonNull final KiiSocialConnect kiiSocialConnect, @Nullable final Activity var1, @Nullable final Bundle var2) {
         return Completable
-                .create(new CompletableOnSubscribe() {
+                .create(e -> kiiSocialConnect.link(var1, var2, new KiiSocialCallBack() {
                     @Override
-                    public void subscribe(final CompletableEmitter e) throws Exception {
-                        kiiSocialConnect.link(var1, var2, new KiiSocialCallBack() {
-                            @Override
-                            public void onLinkCompleted(@NonNull KiiSocialConnect.SocialNetwork network, @Nullable KiiUser user, @Nullable Exception exception) {
-                                if (exception != null) {
-                                    e.onError(exception);
-                                    return;
-                                }
+                    public void onLinkCompleted(@NonNull KiiSocialConnect.SocialNetwork network, @Nullable KiiUser user, @Nullable Exception exception) {
+                        if (exception != null) {
+                            e.onError(exception);
+                            return;
+                        }
 
-                                e.onComplete();
-                            }
-                        });
+                        e.onComplete();
                     }
-                });
+                }));
     }
 
     @CheckResult
     @NonNull
     public static Completable unlinkAsCompletable(@NonNull final KiiSocialConnect kiiSocialConnect, @Nullable final Activity var1, @Nullable final Bundle var2) {
         return Completable
-                .create(new CompletableOnSubscribe() {
+                .create(e -> kiiSocialConnect.unlink(var1, var2, new KiiSocialCallBack() {
                     @Override
-                    public void subscribe(final CompletableEmitter e) throws Exception {
-                        kiiSocialConnect.unlink(var1, var2, new KiiSocialCallBack() {
-                            @Override
-                            public void onUnLinkCompleted(@NonNull KiiSocialConnect.SocialNetwork network, @Nullable KiiUser user, @Nullable Exception exception) {
-                                if (exception != null) {
-                                    e.onError(exception);
-                                    return;
-                                }
+                    public void onUnLinkCompleted(@NonNull KiiSocialConnect.SocialNetwork network, @Nullable KiiUser user, @Nullable Exception exception) {
+                        if (exception != null) {
+                            e.onError(exception);
+                            return;
+                        }
 
-                                e.onComplete();
-                            }
-                        });
+                        e.onComplete();
                     }
-                });
+                }));
     }
 }

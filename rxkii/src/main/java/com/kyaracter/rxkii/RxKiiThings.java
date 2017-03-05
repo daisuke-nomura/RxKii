@@ -48,24 +48,16 @@ public class RxKiiThings {
     @NonNull
     public static Single<KiiThing> registerAsSingle(@NonNull final String vendorThingID, @NonNull final String password, @Nullable final String thingType, @Nullable final ThingFields thingFields) {
         return Single
-                .fromCallable(new Callable<KiiThing>() {
-                    @Override
-                    public KiiThing call() throws Exception {
-                        return KiiThing.register(vendorThingID, password, thingType, thingFields);
-                    }
-                });
+                .fromCallable(() -> KiiThing.register(vendorThingID, password, thingType, thingFields));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiThing> refreshAsSingle(@NonNull final KiiThing kiiThing) {
         return Single
-                .fromCallable(new Callable<KiiThing>() {
-                    @Override
-                    public KiiThing call() throws Exception {
-                        kiiThing.refresh();
-                        return kiiThing;
-                    }
+                .fromCallable(() -> {
+                    kiiThing.refresh();
+                    return kiiThing;
                 });
     }
 
@@ -99,12 +91,7 @@ public class RxKiiThings {
     @NonNull
     public static Single<Boolean> isOwnerAsSingle(@NonNull final KiiThing kiiThing, @NonNull final KiiThingOwner owner) {
         return Single
-                .fromCallable(new Callable<Boolean>() {
-                    @Override
-                    public Boolean call() throws Exception {
-                        return kiiThing.isOwner(owner);
-                    }
-                });
+                .fromCallable(() -> kiiThing.isOwner(owner));
     }
 
     @CheckResult
@@ -163,47 +150,27 @@ public class RxKiiThings {
     @NonNull
     public static Single<KiiThing> enableAsSingle(@NonNull final String thingId) {
         return Single
-                .fromCallable(new Callable<KiiThing>() {
-                    @Override
-                    public KiiThing call() throws Exception {
-                        return KiiThing.loadWithThingID(thingId);
-                    }
-                });
+                .fromCallable(() -> KiiThing.loadWithThingID(thingId));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiThing> loadWithVendorThingIDAsSingle(@NonNull final String vendorThingID) {
         return Single
-                .fromCallable(new Callable<KiiThing>() {
-                    @Override
-                    public KiiThing call() throws Exception {
-                        return KiiThing.loadWithVendorThingID(vendorThingID);
-                    }
-                });
+                .fromCallable(() -> KiiThing.loadWithVendorThingID(vendorThingID));
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiListResult<KiiTopic>> listTopicsAsSingle(@NonNull final KiiThing kiiThing) {
         return Single
-                .fromCallable(new Callable<KiiListResult<KiiTopic>>() {
-                    @Override
-                    public KiiListResult<KiiTopic> call() throws Exception {
-                        return kiiThing.listTopics();
-                    }
-                });
+                .fromCallable(() -> kiiThing.listTopics());
     }
 
     @CheckResult
     @NonNull
     public static Single<KiiListResult<KiiTopic>> listTopicsAsSingle(@NonNull final KiiThing kiiThing, @Nullable final String paginationKey) {
         return Single
-                .fromCallable(new Callable<KiiListResult<KiiTopic>>() {
-                    @Override
-                    public KiiListResult<KiiTopic> call() throws Exception {
-                        return kiiThing.listTopics(paginationKey);
-                    }
-                });
+                .fromCallable(() -> kiiThing.listTopics(paginationKey));
     }
 }
