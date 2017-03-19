@@ -56,7 +56,7 @@ NOTE: NOT compatible with RxJava 1.
 and
 
     dependencies {
-        compile 'com.github.daisuke-nomura:RxKii:{latest version}'
+        compile 'com.github.daisuke-nomura:RxKii:1.0.3'
     }
 
 ##Bugs and Feedback
