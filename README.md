@@ -7,7 +7,7 @@ This library returns Single or Completable or Observable of RxJava 2.
 
 NOTE: NOT compatible with RxJava 1.
 
-##Sample usage
+## Sample usage
 
     RxKiiUser.logInAsSingle("aaa@example.com", "bbbb")
         .flatMapCompletable(new Function<KiiUser, CompletableSource>() {
@@ -45,7 +45,7 @@ NOTE: NOT compatible with RxJava 1.
             }
         }); 
 
-##Binaries
+## Binaries
 
     allprojects {
         repositories {
@@ -59,11 +59,11 @@ and
         compile 'com.github.daisuke-nomura:RxKii:1.0.3'
     }
 
-##Bugs and Feedback
+## Bugs and Feedback
 
 Please use [GitHub Issues][issues].
 
-##License
+## License
 
     MIT License
 
